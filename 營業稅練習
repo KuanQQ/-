@@ -1,0 +1,25 @@
+namespace ConsoleApp2
+{
+	internal class Program
+	{
+		static void Main(string[] args)
+		{
+			Invoice invoice = new Invoice(500);
+			Console.WriteLine($"未稅金額：{invoice.Price}");
+			Console.WriteLine($"營業稅：{invoice.Tax}");
+			Console.WriteLine($"含稅金額：{invoice.InclusivePrice}");
+		}
+	}
+	class Invoice
+	{
+		public int Price { get; set; } //未稅
+        public int Tax { get;private set; }//營業稅
+        public int InclusivePrice { get; private set; }//含稅金額
+		public Invoice(int price, double taxRate = 0.05)
+		{
+			Price = price;
+			Tax = (int)Math.Round(price * taxRate, 0, MidpointRounding.AwayFromZero);//四捨五入
+			InclusivePrice = Price + Tax;//含稅=未稅+營業稅
+				}
+		}
+	}
